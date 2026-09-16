@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAMI PERFUME - Premium Fragrances & Attars</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- ========== HEADER ========== -->
+    <header class="header" id="header">
+        <div class="header-top">
+            <div class="container header-top-inner">
+                <span class="header-promo">Free delivery on orders above PKR 5,000</span>
+                <div class="header-top-links">
+                    <a href="#" onclick="showSection('contact')">Contact Us</a>
+                    <a href="#" onclick="showSection('order-tracking')">Track Order</a>
+                </div>
+            </div>
+        </div>
+        <div class="header-main">
+            <div class="container header-main-inner">
+                <button class="hamburger" id="hamburger" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+                <div class="logo" onclick="showSection('home')">
+                    <span class="logo-icon">&#127807;</span>
+                    <div class="logo-text">
+                        <h1>SAMI PERFUME</h1>
+                        <span class="logo-tagline">Premium Fragrances & Attars</span>
+                    </div>
+                </div>
+                <div class="search-bar" id="searchBar">
+                    <input type="text" id="searchInput" placeholder="Search perfumes, attars, categories..." aria-label="Search">
+                    <button onclick="performSearch()" aria-label="Search">&#128269;</button>
+                </div>
+                <div class="header-icons">
+                    <button class="icon-btn" onclick="toggleSearch()" aria-label="Search" id="searchToggle">&#128269;</button>
+                    <button class="icon-btn" onclick="showSection('wishlist')" aria-label="Wishlist">
+                        &#9825;<span class="badge" id="wishlistBadge">0</span>
+                    </button>
+                    <button class="icon-btn" onclick="showSection('cart')" aria-label="Cart">
+                        &#128722;<span class="badge" id="cartBadge">0</span>
+                    </button>
+                    <button class="icon-btn" onclick="showSection('account')" aria-label="Account">&#128100;</button>
+                    <div class="three-dot-menu" id="threeDotMenu">
+                        <button class="icon-btn three-dot-btn" onclick="toggleThreeDotMenu()" aria-label="Menu">&#8942;</button>
+                        <div class="dropdown-menu" id="dropdownMenu">
+                            <a href="#" onclick="showSection('account')">&#128100; My Account</a>
+                            <a href="#" onclick="showSection('login')">&#128274; Login</a>
+                            <a href="#" onclick="showSection('signup')">&#128221; Sign Up</a>
+                            <a href="#" onclick="showSection('forgot-password')">&#128273; Forgot Password</a>
+                            <hr>
+                            <a href="#" onclick="showSection('wishlist')">&#9825; Wishlist</a>
+                            <a href="#" onclick="showSection('cart')">&#128722; Cart</a>
+                            <a href="#" onclick="showSection('order-tracking')">&#128666; Order Tracking</a>
+                            <a href="#" onclick="showSection('order-history')">&#128203; Order History</a>
+                            <hr>
+                            <a href="#" onclick="showSection('settings')">&#9881; Settings</a>
+                            <a href="#" onclick="showSection('admin')">&#128736; Admin Panel</a>
+                            <a href="#" onclick="showSection('contact')">&#128222; Contact</a>
+                            <a href="#" onclick="showSection('about')">&#128712; About</a>
+                            <a href="#" onclick="showSection('faq')">&#10067; FAQ</a>
+                            <hr>
+                            <a href="#" onclick="showSection('privacy')">&#128274; Privacy Policy</a>
+                            <a href="#" onclick="showSection('terms')">&#128220; Terms & Conditions</a>
+                            <hr>
+                            <a href="#" onclick="handleLogout()">&#128682; Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="nav" id="mainNav">
+            <div class="container">
+                <ul class="nav-list">
+                    <li><a href="#" onclick="showSection('home')" class="active" data-section="home">Home</a></li>
+                    <li class="has-dropdown">
+                        <a href="#" onclick="showSection('all-perfumes')">Perfumes &#9662;</a>
+                        <ul class="dropdown">
+                            <li><a href="#" onclick="showSection('men-perfumes')">Men's Perfumes</a></li>
+                            <li><a href="#" onclick="showSection('women-perfumes')">Women's Perfumes</a></li>
+                            <li><a href="#" onclick="showSection('unisex-perfumes')">Unisex Perfumes</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#" onclick="showSection('attar-collection')">Attars</a></li>
+                    <li><a href="#" onclick="showSection('premium-collection')">Premium</a></li>
+                    <li><a href="#" onclick="showSection('best-sellers')">Best Sellers</a></li>
+                    <li><a href="#" onclick="showSection('new-arrivals')">New Arrivals</a></li>
+                    <li><a href="#" onclick="showSection('special-offers')" class="nav-offer">Offers</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Nav Overlay -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="closeMobileNav()"></div>
+    <nav class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-header">
+            <span class="logo-icon">&#127807;</span>
+            <h2>SAMI PERFUME</h2>
+            <button onclick="closeMobileNav()" aria-label="Close">&times;</button>
+        </div>
+        <ul class="mobile-nav-list">
+            <li><a href="#" onclick="showSection('home');closeMobileNav()">Home</a></li>
+            <li><a href="#" onclick="showSection('all-perfumes');closeMobileNav()">All Perfumes</a></li>
+            <li><a href="#" onclick="showSection('men-perfumes');closeMobileNav()">Men's Perfumes</a></li>
+            <li><a href="#" onclick="showSection('women-perfumes');closeMobileNav()">Women's Perfumes</a></li>
+            <li><a href="#" onclick="showSection('unisex-perfumes');closeMobileNav()">Unisex Perfumes</a></li>
+            <li><a href="#" onclick="showSection('attar-collection');closeMobileNav()">Attar Collection</a></li>
+            <li><a href="#" onclick="showSection('premium-collection');closeMobileNav()">Premium Collection</a></li>
+            <li><a href="#" onclick="showSection('best-sellers');closeMobileNav()">Best Sellers</a></li>
+            <li><a href="#" onclick="showSection('new-arrivals');closeMobileNav()">New Arrivals</a></li>
+            <li><a href="#" onclick="showSection('special-offers');closeMobileNav()">Special Offers</a></li>
+            <li><a href="#" onclick="showSection('reviews');closeMobileNav()">Customer Reviews</a></li>
+            <li><a href="#" onclick="showSection('cart');closeMobileNav()">Shopping Cart</a></li>
+            <li><a href="#" onclick="showSection('wishlist');closeMobileNav()">Wishlist</a></li>
+            <li><a href="#" onclick="showSection('account');closeMobileNav()">My Account</a></li>
+            <li><a href="#" onclick="showSection('login');closeMobileNav()">Login</a></li>
+            <li><a href="#" onclick="showSection('signup');closeMobileNav()">Sign Up</a></li>
+            <li><a href="#" onclick="showSection('order-tracking');closeMobileNav()">Order Tracking</a></li>
+            <li><a href="#" onclick="showSection('contact');closeMobileNav()">Contact Us</a></li>
+            <li><a href="#" onclick="showSection('about');closeMobileNav()">About</a></li>
+            <li><a href="#" onclick="showSection('faq');closeMobileNav()">FAQ</a></li>
+            <li><a href="#" onclick="showSection('settings');closeMobileNav()">Settings</a></li>
+            <li><a href="#" onclick="showSection('admin');closeMobileNav()">Admin Panel</a></li>
+            <li><a href="#" onclick="handleLogout();closeMobileNav()">Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main id="mainContent">
+
+        <!-- HOME PAGE -->
+        <section id="section-home" class="page-section active">
+            <!-- Hero -->
+            <div class="hero">
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <span class="hero-badge">New Collection 2026</span>
+                    <h2>Discover the Art of <span class="text-gold">Fragrance</span></h2>
+                    <p>Explore our curated collection of premium perfumes and traditional attars, crafted for the modern connoisseur.</p>
+                    <div class="hero-btns">
+                        <button class="btn btn-gold" onclick="showSection('all-perfumes')">Shop Now</button>
+                        <button class="btn btn-outline" onclick="showSection('premium-collection')">Explore Collection</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categories Strip -->
+            <div class="categories-strip">
+                <div class="container">
+                    <div class="cat-items">
+                        <div class="cat-item" onclick="showSection('men-perfumes')">
+                            <div class="cat-icon">&#128142;</div>
+                            <span>Men's</span>
+                        </div>
+                        <div class="cat-item" onclick="showSection('women-perfumes')">
+                            <div class="cat-icon">&#127800;</div>
+                            <span>Women's</span>
+                        </div>
+                        <div class="cat-item" onclick="showSection('unisex-perfumes')">
+                            <div class="cat-icon">&#127752;</div>
+                            <span>Unisex</span>
+                        </div>
+                        <div class="cat-item" onclick="showSection('attar-collection')">
+                            <div class="cat-icon">&#9883;</div>
+                            <span>Attars</span>
+                        </div>
+                        <div class="cat-item" onclick="showSection('premium-collection')">
+                            <div class="cat-icon">&#11088;</div>
+                            <span>Premium</span>
+                        </div>
+                        <div class="cat-item" onclick="showSection('special-offers')">
+                            <div class="cat-icon">&#127381;</div>
+                            <span>Offers</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Products -->
+            <div class="section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Featured <span class="text-gold">Perfumes</span></h2>
+                        <p>Handpicked fragrances loved by our customers</p>
+                    </div>
+                    <div class="product-grid" id="featuredProducts"></div>
+                    <div class="section-footer">
+                        <button class="btn btn-gold" onclick="showSection('all-perfumes')">View All Products</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Promo Banner -->
+            <div class="promo-banner">
+                <div class="container">
+                    <div class="promo-content">
+                        <span class="promo-badge">Limited Time</span>
+                        <h2>Up to <span class="text-gold">40% OFF</span> on Premium Attars</h2>
+                        <p>Discover the essence of Arabian luxury with our exclusive attar collection.</p>
+                        <button class="btn btn-gold" onclick="showSection('special-offers')">Shop the Sale</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Best Sellers -->
+            <div class="section section-alt">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Best <span class="text-gold">Sellers</span></h2>
+                        <p>Our most loved fragrances</p>
+                    </div>
+                    <div class="product-grid" id="bestSellersHome"></div>
+                </div>
+            </div>
+
+            <!-- Special Offers -->
+            <div class="section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Special <span class="text-gold">Offers</span></h2>
+                        <p>Exclusive deals you don't want to miss</p>
+                    </div>
+                    <div class="product-grid" id="specialOffersHome"></div>
+                </div>
+            </div>
+
+            <!-- Customer Reviews -->
+            <div class="section section-alt">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>What Our <span class="text-gold">Customers</span> Say</h2>
+                        <p>Real reviews from real customers</p>
+                    </div>
+                    <div class="reviews-grid" id="homeReviews"></div>
+                </div>
+            </div>
+
+            <!-- Social Media Section -->
+            <div class="social-section">
+                <div class="container">
+                    <h2>Follow <span class="text-gold">Us</span></h2>
+                    <p>Stay connected for the latest updates and offers</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link whatsapp" target="_blank" id="socialWhatsapp">&#128172; WhatsApp</a>
+                        <a href="#" class="social-link facebook" target="_blank" id="socialFacebook">&#128100; Facebook</a>
+                        <a href="#" class="social-link instagram" target="_blank" id="socialInstagram">&#128247; Instagram</a>
+                        <a href="#" class="social-link tiktok" target="_blank" id="socialTiktok">&#127916; TikTok</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ALL PERFUMES -->
+        <section id="section-all-perfumes" class="page-section">
+            <div class="container">
+                <div class="breadcrumb"><a href="#" onclick="showSection('home')">Home</a> / All Perfumes</div>
+                <div class="section-header"><h2>All <span class="text-gold">Perfumes</span></h2><p>Our complete fragrance collection</p></div>
+                <div class="filter-bar">
+                    <select id="filterCategory" onchange="filterProducts()">
+                        <option value="all">All Categories</option>
+                        <option value="men">Men's</option>
+                        <option value="women">Women's</option>
+                        <option value="unisex">Unisex</option>
+                        <option value="attar">Attar</option>
+                    </select>
+                    <select id="filterPrice" onchange="filterProducts()">
+                        <option value="all">All Prices</option>
+                        <option value="0-2000">Under PKR 2,000</option>
+                        <option value="2000-3000">PKR 2,000 - 3,000</option>
+                        <option value="3000-5000">PKR 3,000 - 5,000</option>
+                        <option value="5000-99999">Above PKR 5,000</option>
+                    </select>
+                    <select id="filterSort" onchange="filterProducts()">
+                        <option value="default">Sort By</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="name">Name: A-Z</option>
+                        <option value="rating">Top Rated</option>
+                    </select>
+                </div>
+                <div class="product-grid" id="allProductsGrid"></div>
+            </div>
+        </section>
+
+        <!-- MEN'S PERFUMES -->
+        <section id="section-men-perfumes" class="page-section">
+            <div class="container">
+                <div class="breadcrumb"><a href="#" onclick="showSection('home')">Home</a> / <a href="#" onclick="showSection('all-perfumes')">Perfumes</a> / Men's</div>
+                <div class="section-header"><h2>Men's <span class="text-gold">Perfumes</span></h2><p>Bold and sophisticated fragrances for men</p></div>
+                <div class="product-grid" id="menProductsGrid"></div>
+            </div>
+        </section>
+
+        <!-- WOMEN'S PERFUMES -->
+        <section id="section-women-perfumes" class="page-section">
+            <div class="container">
+                <div class="breadcrumb"><a href="#" onclick="showSection('home')">Home</a> / <a href="#" onclick="showSection('all-perfumes')">Perfumes</a> / Women's</div>
+                <div class="section-header"><h2>Women's <span class="text-gold">Perfumes</span></h2><p>Elegant and enchanting fragrances for women</p></div>
+                <div class="product-grid" id="womenProductsGrid"></div>
+            </div>
+        </section>
+
+        <!-- UNISEX PERFUMES -->
+        <section id="section-unisex-perfumes" class="page-section">
+            <div class="container">
+                <div class="breadcrumb"><a href="#" onclick="showSection('home')">Home</a> / <a href="#" onclick="showSection('all-perfumes')">Perfumes</a> / Unisex</div>
+                <div class="section-header"><h2>Unisex <span class="text-gold">Perfumes</span></h2><p>Universally appealing fragrances for everyone</p></div>
+                <div class="product-grid" id="unisexProductsGrid"></div>
+            </div>
+        </section>
+
+        <!-- ATTAR COLLECTION -->
+        <section id="section-attar-collection" class="page-section">
+            <div class="container">
+                <div class="breadcrumb"><a href="#" onclick="showSection('home')">Home</a> / Attar Collection</div>
+                <div class="section-header"><h2>Attar <span class="text-gold">Collection</span></h2><p>Traditional and premium concentrated attars</p></div>
+                <div class="product-grid" id="attarProductsGrid"></div>
+            </div>
+        </section>
+
+        <!-- PREMIUM COLLECTION -->
+        <section id="section-premium-collection" class="page-section">
+            <div class="container">
+                <div class="breadcrumb"><a href="#" onclick="showSection('home')">Home</a> / Premium Collection</div>
+                <div class="section-header"><h2>Premium <span class="text-gold">Collection</span></h2><p>Exclusive luxury fragrances for the discerning few</p></div>
+                <div class="product-grid" id="premiumProductsGrid"></div>
+            </div>
+        </section>
+
+        <!-- BEST SELLERS -->
+        <section id="section-best-sellers" class="page-section">
+            <div class="container">
+                <div class="breadcrumb"><a href="#" onclick="showSection('home')">Home</a> / Best Sellers</div>
+                <div class="section-header"><h2>Best <span class="text-gold">Sellers</span></h2><p>Our most popular and highest-rated fragrances</p></div>
+                <div class="product-grid" id="bestSellersGrid"></div>
+            </div>
+        </section>
+
+        <!-- NEW ARRIVALS -->
+        <section id="section-new-arrivals" class="page-section">
+            <div class="container">
+                <div class="breadcrumb"><a href="#" onclick="showSection('home')">Home</a> / New Arrivals</div>
+                <div class="section-header"><h2>New <span class="text-gold">Arrivals</span></h2><p>Freshly added fragrances to our collection</p></div>
+                <div class="product-grid" id="newArrivalsGrid"></div>
+            </div>
+        </section>
+
+        <!-- SPECIAL OFFERS -->
+        <section id="section-special-offers" class="page-section">
+            <div class="container">
+                <div class="breadcrumb"><a href="#" onclick="showSection('home')">Home</a> / Special Offers</div>
+                <div class="section-header"><h2>Special <span class="text-gold">Offers</span></h2><p>Incredible deals on premium fragrances</p></div>
+                <div class="product-grid" id="specialOffersGrid"></div>
+            </div>
+        </section>
+
+        <!-- PRODUCT DETAILS -->
+        <section id="section-product-details" class="page-section">
+            <div class="container">
+                <div class="breadcrumb"><a href="#" onclick="showSection('home')">Home</a> / <a href="#" onclick="history.back()">Products</a> / Product Details</div>
+                <div class="product-detail" id="productDetailContent"></div>
+            </div>
+        </section>
+
+        <!-- SEARCH RESULTS -->
+        <section id="section-search-results" class="page-section">
+            <div class="container">
+                <div class="breadcrumb"><a href="#" onclick="showSection('home')">Home</a> / Search Results</div>
+                <div class="section-header"><h2>Search <span class="text-gold">Results</span></h2><p id="searchResultsCount"></p></div>
+                <div class="product-grid" id="searchResultsGrid"></div>
+                <div class="empty-state" id="searchEmpty" style="display:none">
+                    <div class="empty-icon">&#128269;</div>
+                    <h3>No products found</h3>
+                    <p>Try a different search term or browse our categories.</p>
+                    <button class="btn btn-gold" onclick="showSection('all-perfumes')">Browse All Products</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SHOPPING CART -->
+        <section id="section-cart" class="page-section">
+            <div class="container">
+                <div class="breadcrumb"><a href="#" onclick="showSection('home')">Home</a> / Shopping Cart</div>
+                <div class="section-header"><h2>Shopping <span class="text-gold">Cart</span></h2></div>
+                <div id="cartContent"></div>
+            </div>
+        </section>
+
+        <!-- WISHLIST -->
+        <section id="section-wishlist" class="page-section">
+            <div class="container">
+                <div class="breadcrumb"><a href="#" onclick="showSection('home')">Home</a> / Wishlist</div>
+                <div class="section-header"><h2>My <span class="text-gold">Wishlist</span></h2></div>
+                <div id="wishlistContent"></div>
+            </div>
+        </section>
+
+        <!-- CUSTOMER REVIEWS -->
+        <section id="section-reviews" class="page-section">
+            <div class="container">
+                <div class="breadcrumb"><a href="#" onclick="showSection('home')">Home</a> / Customer Reviews</div>
+                <div class="section-header"><h2>Customer <span class="text-gold">Reviews</span></h2><p>See what our customers say about us</p></div>
+                <div id="allReviewsContent"></div>
+            </div>
+        </section>
+
+        <!-- USER ACCOUNT -->
+        <section id="section-account" class="page-section">
+            <div class="container">
+                <div class="breadcrumb"><a href="#" onclick="showSection('home')">Home</a> / My Account</div>
+                <div class="section-header"><h2>My <span class="text-gold">Account</span></h2></div>
+                <div id="accountContent"></div>
+            </div>
+        </section>
+
+        <!-- LOGIN -->
+        <section id="section-login" class="page-section">
+            <div class="container">
+                <div class="breadcrumb"><a href="#" onclick="showSection('home')">Home</a> / Login</div>
+                <div class="auth-container">
+                    <div class="auth-card">
+                        <div class="auth-logo"><span class="logo-icon large">&#127807;</span><h2>Welcome Back</h2><p>Login to your SAMI PERFUME account</p></div>
+                        <form id="loginForm" onsubmit="handleLogin(event)">
+                            <div class="form-group">
+                                <label for="loginEmail">Mobile Number or Email</label>
+                                <input type="text" id="loginEmail" placeholder="Enter mobile or email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="loginPassword">Password</label>
+                                <div class="password-field">
+                                    <input type="password" id="loginPassword" placeholder="Enter password" required>
+                                    <button type="button" class="toggle-pw" onclick="togglePassword('loginPassword')">&#128065;</button>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-gold btn-full">Login</button>
+                            <div class="auth-links">
+                                <a href="#" onclick="showSection('forgot-password')">Forgot Password?</a>
+                                <a href="#" onclick="showSection('signup')">Create Account</a>
+                            </div>
+                        </form>
+                        <p class="auth-note">&#9888; Demo: Use any email/mobile + password (min 6 chars)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SIGN UP -->
+        <section id="section-signup" class="page-section">
+            <div class="container">
+                <div class="breadcrumb"><a href="#" onclick="showSection('home')">Home</a> / Sign Up</div>
+                <div class="auth-container">
+                    <div class="auth-card">
+                        <div class="auth-logo"><span class="logo-icon large">&#127807;</span><h2>Create Account</h2><p>Join SAMI PERFUME for exclusive offers</p></div>
+                        <form id="signupForm" onsubmit="handleSignup(event)">
+                            <div class="form-group">
+                                <label for="signupName">Full Name</label>
+                                <input type="text" id="signupName" placeholder="Enter full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="signupMobile">Mobile Number</label>
+                                <input type="tel" id="signupMobile" placeholder="03XX XXXXXXX" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="signupEmail">Email Address</label>
+                                <input type="email" id="signupEmail" placeholder="your@email.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="signupPassword">Password</label>
+                                <div class="password-field">
+                                    <input type="password" id="signupPassword" placeholder="Min 6 characters" required minlength="6">
+                                    <button type="button" class="toggle-pw" onclick="togglePassword('signupPassword')">&#128065;</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="signupConfirm">Confirm Password</label>
+                                <div class="password-field">
+                                    <input type="password" id="signupConfirm" placeholder="Confirm password" required>
+                                    <button type="button" class="toggle-pw" onclick="togglePassword('signupConfirm')">&#128065;</button>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-gold btn-full">Create Account</button>
+                            <div class="auth-links">
+                                <a href="#" onclick="showSection('login')">Already have an account? Login</a>
+                            </div>
+                        </form>
+                        <p class="auth-note">&#9888; Demo: localStorage only. Production requires backend authentication.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FORGOT PASSWORD -->
+        <section id="section-forgot-password" class="page-section">
+            <div class="container">
+                <div class="breadcrumb"><a href="#" onclick="showSection('home')">Home</a> / Forgot Password</div>
+                <div class="auth-container">
+                    <div class="auth-card">
+                        <div class="auth-logo"><span class="logo-icon large">&#127807;</span><h2>Reset Password</h2><p>Choose a recovery method</p></div>
+                        <div id="forgotStep1">
+                            <div class="recovery-options">
+                                <button class="recovery-option" onclick="selectRecovery('whatsapp')">
+                                    <span>&#128172;</span>
+                                    <h4>WhatsApp Recovery</h4>
+                                    <p>Receive code via WhatsApp</p>
+                                </button>
+                                <button class="recovery-option" onclick="selectRecovery('email')">
+                                    <span>&#128231;</span>
+                                    <h4>Email Recovery</h4>
+                                    <p>Receive code via Email</p>
+                                </button>
+                            </div>
+                        </div>
+                        <div id="forgotStep2" style="display:none">
+                            <div class="form-group">
+                                <label id="recoveryInputLabel">Enter your mobile number</label>
+                                <input type="text" id="recoveryInput" placeholder="">
+                            </div>
+                            <button class="btn btn-gold btn-full" onclick="sendRecoveryCode()">Send Recovery Code</button>
+                            <div class="auth-links"><a href="#" onclick="showForgotStep(1)">Change Recovery Method</a></div>
+                        </div>
+                        <div id="forgotStep3" style="display:none">
+                            <p class="recovery-info" id="recoveryInfo"></p>
+                            <div class="form-group">
+                                <label>Verification Code</label>
+                                <input type="text" id="recoveryCode" placeholder="Enter code">
+                            </div>
+                            <button class="btn btn-gold btn-full" onclick="verifyRecoveryCode()">Verify Code</button>
+                            <div class="auth-links">
+                                <a href="#" onclick="sendRecoveryCode()">Resend Code</a>
+                                <a href="#" onclick="showForgotStep(2)">Change Method</a>
+                            </div>
+                        </div>
+                        <div id="forgotStep4" style="display:none">
+                            <div class="form-group">
+                                <label>New Password</label>
+                                <div class="password-field">
+                                    <input type="password" id="newPassword" placeholder="Min 6 characters" required minlength="6">
+                                    <button type="button" class="toggle-pw" onclick="togglePassword('newPassword')">&#128065;</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Confirm New Password</label>
+                                <div class="password-field">
+                                    <input type="password" id="confirmNewPassword" placeholder="Confirm password">
+                                    <button type="button" class="toggle-pw" onclick="togglePassword('confirmNewPassword')">&#128065;</button>
+                                </div>
+                            </div>
+                            <button class="btn btn-gold btn-full" onclick="resetPassword()">Reset Password</button>
+                        </div>
+                        <div id="forgotStep5" style="display:none">
+                            <div class="success-message">
+                                <span class="success-icon">&#10004;</span>
+                                <h3>Password Reset Successful!</h3>
+                                <p>Your password has been updated.</p>
+                                <button class="btn btn-gold" onclick="showSection('login')">Login Now</button>
+                            </div>
+                        </div>
+                        <p class="auth-note">&#9888; Backend Integration Required: Real OTP delivery needs server-side API.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT US -->
+        <section id="section-contact" class="page-section">
+            <div class="container">
+                <div class="breadcrumb"><a href="#" onclick="showSection('home')">Home</a> / Contact Us</div>
+                <div class="section-header"><h2>Contact <span class="text-gold">Us</span></h2><p>We'd love to hear from you</p></div>
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <div class="contact-item"><span class="contact-icon">&#128222;</span><div><h4>Phone</h4><p>+92 300 1234567</p></div></div>
+                        <div class="contact-item"><span class="contact-icon">&#128172;</span><div><h4>WhatsApp</h4><p>+92 300 1234567</p></div></div>
+                        <div class="contact-item"><span class="contact-icon">&#128231;</span><div><h4>Email</h4><p>info@sami-perfume.com</p></div></div>
+                        <div class="contact-item"><span class="contact-icon">&#128205;</span><div><h4>Address</h4><p>Main Boulevard, Gulberg III, Lahore, Pakistan</p></div></div>
+                        <div class="social-links" style="margin-top:1.5rem">
+                            <a href="#" class="social-link whatsapp" target="_blank" id="contactWhatsapp">&#128172; WhatsApp</a>
+                            <a href="#" class="social-link facebook" target="_blank" id="contactFacebook">&#128100; Facebook</a>
+                            <a href="#" class="social-link instagram" target="_blank" id="contactInstagram">&#128247; Instagram</a>
+                            <a href="#" class="social-link tiktok" target="_blank" id="contactTiktok">&#127916; TikTok</a>
+                        </div>
+                    </div>
+                    <div class="contact-form-wrap">
+                        <h3>Send us a Message</h3>
+                        <form id="contactForm" onsubmit="handleContact(event)">
+                            <div class="form-group"><label>Name</label><input type="text" id="contactName" placeholder="Your name" required></div>
+                            <div class="form-group"><label>Email</label><input type="email" id="contactEmail" placeholder="your@email.com" required></div>
+                            <div class="form-group"><label>Phone</label><input type="tel" id="contactPhone" placeholder="03XX XXXXXXX"></div>
+                            <div class="form-group"><label>Message</label><textarea id="contactMessage" rows="5" placeholder="Your message..." required></textarea></div>
+                            <button type="submit" class="btn btn-gold">Send Message</button>
+                        </form>
+                        <a href="#" id="contactWhatsappBtn" class="btn btn-whatsapp btn-full" target="_blank">&#128172; Chat on WhatsApp</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section id="section-about" class="page-section">
+            <div class="container">
+                <div class="breadcrumb"><a href="#" onclick="showSection('home')">Home</a> / About Us</div>
+                <div class="about-hero">
+                    <h2>About <span class="text-gold">SAMI PERFUME</span></h2>
+                    <p class="about-subtitle">Where Elegance Meets Fragrance</p>
+                </div>
+                <div class="about-content">
+                    <div class="about-block">
+                        <h3>Our Story</h3>
+                        <p>SAMI PERFUME was born from a passion for exquisite fragrances and a deep appreciation for the art of perfumery. Founded with a vision to bring premium-quality perfumes and attars to fragrance enthusiasts across Pakistan, we curate the finest scents from around the world.</p>
+                    </div>
+                    <div class="about-block">
+                        <h3>Our Mission</h3>
+                        <p>To provide an unparalleled fragrance experience through authentic, high-quality perfumes and attars at accessible prices. We believe everyone deserves to wear a scent that tells their story.</p>
+                    </div>
+                    <div class="about-values">
+                        <div class="value-card"><span>&#128142;</span><h4>Premium Quality</h4><p>Every fragrance is carefully selected and verified for authenticity and longevity.</p></div>
+                        <div class="value-card"><span>&#127793;</span><h4>Authentic Scents</h4><p>We source directly from trusted suppliers and renowned perfume houses.</p></div>
+                        <div class="value-card"><span>&#128156;</span><h4>Customer Love</h4><p>Our customers are at the heart of everything we do. Your satisfaction is our priority.</p></div>
+                        <div class="value-card"><span>&#128666;</span><h4>Fast Delivery</h4><p>Quick and reliable delivery across Pakistan with secure packaging.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ORDER TRACKING -->
+        <section id="section-order-tracking" class="page-section">
+            <div class="container">
+                <div class="breadcrumb"><a href="#" onclick="showSection('home')">Home</a> / Order Tracking</div>
+                <div class="section-header"><h2>Track Your <span class="text-gold">Order</span></h2></div>
+                <div class="auth-container">
+                    <div class="auth-card">
+                        <form onsubmit="trackOrder(event)">
+                            <div class="form-group"><label>Order Number</label><input type="text" id="trackOrderNum" placeholder="e.g. SP-10001" required></div>
+                            <div class="form-group"><label>Mobile Number</label><input type="tel" id="trackMobile" placeholder="03XX XXXXXXX" required></div>
+                            <button type="submit" class="btn btn-gold btn-full">Track Order</button>
+                        </form>
+                        <div id="trackingResult" style="margin-top:1.5rem"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ORDER HISTORY -->
+        <section id="section-order-history" class="page-section">
+            <div class="container">
+                <div class="breadcrumb"><a href="#" onclick="showSection('home')">Home</a> / Order History</div>
+                <div class="section-header"><h2>Order <span class="text-gold">History</span></h2></div>
+                <div id="orderHistoryContent"></div>
+            </div>
+        </section>
+
+        <!-- CHECKOUT -->
+        <section id="section-checkout" class="page-section">
+            <div class="container">
+                <div class="breadcrumb"><a href="#" onclick="showSection('cart')">Cart</a> / Checkout</div>
+                <div class="section-header"><h2><span class="text-gold">Checkout</span></h2></div>
+                <div class="checkout-grid">
+                    <div class="checkout-form-wrap">
+                        <h3>Shipping Information</h3>
+                        <form id="checkoutForm" onsubmit="handleCheckout(event)">
+                            <div class="form-group"><label>Full Name</label><input type="text" id="checkName" required placeholder="Enter full name"></div>
+                            <div class="form-group"><label>Mobile Number</label><input type="tel" id="checkMobile" required placeholder="03XX XXXXXXX"></div>
+                            <div class="form-group"><label>Email</label><input type="email" id="checkEmail" required placeholder="your@email.com"></div>
+                            <div class="form-group"><label>City</label><input type="text" id="checkCity" required placeholder="e.g. Lahore"></div>
+                            <div class="form-group"><label>Complete Address</label><textarea id="checkAddress" rows="3" required placeholder="House #, Street, Area, City"></textarea></div>
+                            <h3>Payment Method</h3>
+                            <div class="payment-options">
+                                <label class="payment-option"><input type="radio" name="payment" value="cod" checked> Cash on Delivery</label>
+                                <label class="payment-option"><input type="radio" name="payment" value="bank"> Bank Transfer</label>
+                                <label class="payment-option"><input type="radio" name="payment" value="other"> Other Payment Method</label>
+                            </div>
+                            <button type="submit" class="btn btn-gold btn-full" style="margin-top:1rem">Place Order</button>
+                        </form>
+                    </div>
+                    <div class="checkout-summary" id="checkoutSummary"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ORDER CONFIRMATION -->
+        <section id="section-order-confirmation" class="page-section">
+            <div class="container">
+                <div class="success-message" style="padding:3rem 0">
+                    <span class="success-icon">&#10004;</span>
+                    <h2>Order Placed Successfully!</h2>
+                    <p id="orderConfirmDetails"></p>
+                    <div style="margin-top:1.5rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+                        <button class="btn btn-gold" onclick="showSection('order-tracking')">Track Order</button>
+                        <button class="btn btn-outline" onclick="showSection('home')">Continue Shopping</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SETTINGS -->
+        <section id="section-settings" class="page-section">
+            <div class="container">
+                <div class="breadcrumb"><a href="#" onclick="showSection('home')">Home</a> / Settings</div>
+                <div class="section-header"><h2><span class="text-gold">Settings</span></h2></div>
+                <div class="settings-grid">
+                    <div class="settings-card">
+                        <h3>&#127760; Theme</h3>
+                        <div class="form-group">
+                            <select id="themeSelect" onchange="changeTheme()">
+                                <option value="light">Light Mode</option>
+                                <option value="dark">Dark Mode</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="settings-card">
+                        <h3>&#128100; Profile</h3>
+                        <a href="#" class="btn btn-outline btn-full" onclick="showSection('account')">View Profile</a>
+                        <a href="#" class="btn btn-outline btn-full" style="margin-top:.5rem" onclick="showSection('forgot-password')">Change Password</a>
+                    </div>
+                    <div class="settings-card">
+                        <h3>&#128276; Notifications</h3>
+                        <label class="toggle-label"><input type="checkbox" checked> Email Notifications</label>
+                        <label class="toggle-label"><input type="checkbox" checked> WhatsApp Notifications</label>
+                        <label class="toggle-label"><input type="checkbox"> SMS Notifications</label>
+                    </div>
+                    <div class="settings-card">
+                        <h3>&#127760; Language</h3>
+                        <div class="form-group">
+                            <select><option>English</option><option>Urdu</option></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ADMIN PANEL -->
+        <section id="section-admin" class="page-section">
+            <div class="container">
+                <div class="breadcrumb"><a href="#" onclick="showSection('home')">Home</a> / Admin Panel</div>
+                <div class="section-header"><h2>Admin <span class="text-gold">Panel</span></h2><p>Manage your store settings and products</p></div>
+                <p class="auth-note">&#9888; Backend Integration Required: Admin panel requires server-side authentication and database.</p>
+                <div class="admin-grid">
+                    <div class="admin-card">
+                        <h3>&#128221; Edit Store Info</h3>
+                        <form onsubmit="saveAdminStore(event)">
+                            <div class="form-group"><label>Website Name</label><input type="text" id="adminStoreName" value="SAMI PERFUME"></div>
+                            <div class="form-group"><label>WhatsApp Number</label><input type="text" id="adminWhatsapp" value="923001234567"></div>
+                            <div class="form-group"><label>Facebook URL</label><input type="url" id="adminFacebook" value="#"></div>
+                            <div class="form-group"><label>Instagram URL</label><input type="url" id="adminInstagram" value="#"></div>
+                            <div class="form-group"><label>TikTok URL</label><input type="url" id="adminTiktok" value="#"></div>
+                            <button type="submit" class="btn btn-gold">Save Settings</button>
+                        </form>
+                    </div>
+                    <div class="admin-card">
+                        <h3>&#128722; Manage Products</h3>
+                        <form onsubmit="addAdminProduct(event)">
+                            <div class="form-group"><label>Product Name</label><input type="text" id="adminPName" required></div>
+                            <div class="form-group"><label>Category</label>
+                                <select id="adminPCategory"><option value="men">Men</option><option value="women">Women</option><option value="unisex">Unisex</option><option value="attar">Attar</option></select>
+                            </div>
+                            <div class="form-group"><label>Price (PKR)</label><input type="number" id="adminPPrice" required></div>
+                            <div class="form-group"><label>Size</label><input type="text" id="adminPSize" placeholder="e.g. 100ml"></div>
+                            <div class="form-group"><label>Description</label><textarea id="adminPDesc" rows="2"></textarea></div>
+                            <button type="submit" class="btn btn-gold">Add Product</button>
+                        </form>
+                        <div id="adminProductsList" style="margin-top:1rem"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section id="section-faq" class="page-section">
+            <div class="container">
+                <div class="breadcrumb"><a href="#" onclick="showSection('home')">Home</a> / FAQ</div>
+                <div class="section-header"><h2>Frequently Asked <span class="text-gold">Questions</span></h2></div>
+                <div class="faq-list" id="faqList"></div>
+            </div>
+        </section>
+
+        <!-- PRIVACY POLICY -->
+        <section id="section-privacy" class="page-section">
+            <div class="container">
+                <div class="breadcrumb"><a href="#" onclick="showSection('home')">Home</a> / Privacy Policy</div>
+                <div class="page-content">
+                    <h2>Privacy <span class="text-gold">Policy</span></h2>
+                    <p class="legal-note">&#9888; This is a demo privacy policy for SAMI PERFUME. Must be reviewed by a legal professional before real commercial use.</p>
+                    <h3>1. Information We Collect</h3>
+                    <p>We collect information you provide directly: name, email, phone number, shipping address, and order details. We also collect browsing data through cookies and localStorage for demo purposes.</p>
+                    <h3>2. How We Use Your Information</h3>
+                    <p>To process orders, deliver products, communicate about orders, improve our services, and send promotional offers (with your consent).</p>
+                    <h3>3. Information Sharing</h3>
+                    <p>We do not sell your personal information. We may share data with delivery partners to fulfill orders. Backend Integration Required: Real data sharing policies need server-side implementation.</p>
+                    <h3>4. Cookies & Storage</h3>
+                    <p>This demo uses localStorage to store cart, wishlist, and session data on your browser. No cookies are used for tracking.</p>
+                    <h3>5. Data Security</h3>
+                    <p>Backend Integration Required: Production systems need encrypted storage, secure APIs, and HTTPS. This demo stores data locally in your browser.</p>
+                    <h3>6. Your Rights</h3>
+                    <p>You may request access to, correction of, or deletion of your personal data by contacting us.</p>
+                    <h3>7. Contact</h3>
+                    <p>For privacy-related inquiries: info@sami-perfume.com</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TERMS & CONDITIONS -->
+        <section id="section-terms" class="page-section">
+            <div class="container">
+                <div class="breadcrumb"><a href="#" onclick="showSection('home')">Home</a> / Terms & Conditions</div>
+                <div class="page-content">
+                    <h2>Terms & <span class="text-gold">Conditions</span></h2>
+                    <p class="legal-note">&#9888; Demo terms for SAMI PERFUME. Must be reviewed by a legal professional before real commercial use.</p>
+                    <h3>1. Orders</h3>
+                    <p>All orders are subject to product availability. We reserve the right to cancel orders due to pricing errors or stock issues.</p>
+                    <h3>2. Payments</h3>
+                    <p>Payments can be made via Cash on Delivery, Bank Transfer, or other methods as displayed. Backend Integration Required: Real payment processing needs a payment gateway.</p>
+                    <h3>3. Delivery</h3>
+                    <p>We deliver across Pakistan. Standard delivery takes 3-5 business days. Free delivery on orders above PKR 5,000.</p>
+                    <h3>4. Returns</h3>
+                    <p>Products may be returned within 7 days if unopened and in original packaging. Opened perfumes cannot be returned.</p>
+                    <h3>5. Reviews</h3>
+                    <p>User reviews represent individual opinions. We reserve the right to remove inappropriate content.</p>
+                    <h3>6. Account</h3>
+                    <p>You are responsible for maintaining the confidentiality of your account credentials. This demo uses localStorage authentication only.</p>
+                    <h3>7. Contact</h3>
+                    <p>For questions about these terms: info@sami-perfume.com</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOCIAL MEDIA -->
+        <section id="section-social" class="page-section">
+            <div class="container">
+                <div class="breadcrumb"><a href="#" onclick="showSection('home')">Home</a> / Social Media</div>
+                <div class="section-header"><h2>Follow <span class="text-gold">SAMI PERFUME</span></h2><p>Stay connected with us on social media</p></div>
+                <div class="social-page-links">
+                    <a href="#" class="social-page-link whatsapp" target="_blank" id="socialPageWhatsapp"><span>&#128172;</span><h3>WhatsApp</h3><p>Chat with us directly</p></a>
+                    <a href="#" class="social-page-link facebook" target="_blank" id="socialPageFacebook"><span>&#128100;</span><h3>Facebook</h3><p>Follow our page</p></a>
+                    <a href="#" class="social-page-link instagram" target="_blank" id="socialPageInstagram"><span>&#128247;</span><h3>Instagram</h3><p>See our latest collections</p></a>
+                    <a href="#" class="social-page-link tiktok" target="_blank" id="socialPageTiktok"><span>&#127916;</span><h3>TikTok</h3><p>Watch our videos</p></a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- WhatsApp Float Button -->
+    <a href="#" id="whatsappFloat" class="whatsapp-float" target="_blank" aria-label="WhatsApp">&#128172;</a>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo"><span class="logo-icon">&#127807;</span><h3>SAMI PERFUME</h3></div>
+                    <p>Premium fragrances and attars for the modern connoisseur. Discover the art of scent.</p>
+                    <div class="footer-social">
+                        <a href="#" id="footWhatsapp" target="_blank">&#128172;</a>
+                        <a href="#" id="footFacebook" target="_blank">&#128100;</a>
+                        <a href="#" id="footInstagram" target="_blank">&#128247;</a>
+                        <a href="#" id="footTiktok" target="_blank">&#127916;</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#" onclick="showSection('home')">Home</a></li>
+                        <li><a href="#" onclick="showSection('all-perfumes')">All Perfumes</a></li>
+                        <li><a href="#" onclick="showSection('attar-collection')">Attars</a></li>
+                        <li><a href="#" onclick="showSection('premium-collection')">Premium</a></li>
+                        <li><a href="#" onclick="showSection('special-offers')">Special Offers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#" onclick="showSection('contact')">Contact Us</a></li>
+                        <li><a href="#" onclick="showSection('faq')">FAQ</a></li>
+                        <li><a href="#" onclick="showSection('order-tracking')">Track Order</a></li>
+                        <li><a href="#" onclick="showSection('privacy')">Privacy Policy</a></li>
+                        <li><a href="#" onclick="showSection('terms')">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Account</h4>
+                    <ul>
+                        <li><a href="#" onclick="showSection('login')">Login</a></li>
+                        <li><a href="#" onclick="showSection('signup')">Sign Up</a></li>
+                        <li><a href="#" onclick="showSection('account')">My Account</a></li>
+                        <li><a href="#" onclick="showSection('wishlist')">Wishlist</a></li>
+                        <li><a href="#" onclick="showSection('cart')">Cart</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 SAMI PERFUME. All Rights Reserved.</p>
+                <p>Made with &#128156; in Pakistan</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+    <!-- Visual Front-End Editor (Ctrl+Shift+E to toggle edit mode) -->
+    <script src="visual-editor.js"></script>
+</body>
+</html>
