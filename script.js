@@ -1435,3 +1435,22 @@ document.addEventListener('DOMContentLoaded', function() {
     renderHomePage();
     updateSocialLinks();
 });
+// Sami Parfum & Supabase Connection (Auto-Configured)
+const supabaseUrl = 'https://vwlotrpekbqktxkenmk.supabase.co';
+const supabaseKey = 'sb_publishable_LxRetceJjGzvyndIgdmtew_yZP53YXx';
+
+if (window.supabase) {
+    const _supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+    
+    async function loadSamiProducts() {
+        try {
+            let { data, error } = await _supabase.from('products').select('*');
+            if (error) throw error;
+            console.log("پرفیوم کامیابی سے لوڈ ہو گئے:", data);
+        } catch (err) {
+            console.log("کنکشن کا مسئلہ:", err.message);
+        }
+    }
+    
+    loadSamiProducts();
+}
