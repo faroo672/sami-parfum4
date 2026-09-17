@@ -1454,7 +1454,7 @@ if (window.supabase) {
     
     loadSamiProducts();
 }
-// Supabase سے ڈیٹا لے کر تینوں حصوں میں دکھانے کا محفوظ کوڈ
+// Supabase سے ڈیٹا لے کر تینوں حصوں میں دکھانے کا اپ ڈیٹ شدہ محفوظ کوڈ
 async function loadCategoriesData() {
   try {
     if (typeof supabaseClient === 'undefined') return;
@@ -1476,6 +1476,7 @@ async function loadCategoriesData() {
                     <p>قیمت: ${p.price || ''}</p>
                   </div>`;
 
+      // یہاں ہم نے 'permium' اور 'premium' دونوں کو شامل کر دیا ہے
       if (cat === 'permium' || cat === 'premium') {
         premiumHtml += card;
       } else if (cat === 'regular') {
