@@ -1454,3 +1454,53 @@ if (window.supabase) {
     
     loadSamiProducts();
 }
+// Supabase سے ڈیٹا لے کر تینوں حصوں میں دکھانے کا محفوظ کوڈ
+async function loadCategoriesData() {
+  try {
+    if (typeof supabaseClient === 'undefined') return;
+    
+    let { data: products, error } = await supabaseClient
+      .from('products')
+      .select('*');
+
+    if (error || !products) return;
+
+    let premiumHtml = "<h2>پریمیم کلیکشن</h2><div style='display:flex; gap:15px; justify-content:center; flex-wrap:wrap;'>";
+    let regularHtml = "<h2>عام کلیکشن</h2><div style='display:flex; gap:15px; justify-content:center; flex-wrap:wrap;'>";
+    let attarHtml = "<h2>عطر کلیکشن</h2><div style='display:flex; gap:15px; justify-content:center; flex-wrap:wrap;'>";
+
+    products.forEach(p => {
+      let cat = (p.category || '').toLowerCase().trim();
+      let card = `<div style="border:1px solid #ddd; padding:10px; border-radius:8px; width:150px;">
+                    <h4>${p.name || ''}</h4>
+                    <p>قیمت: ${p.price || ''}</p>
+                  </div>`;
+
+      if (cat === 'permium' || cat === 'premium') {
+        premiumHtml += card;
+      } else if (cat === 'regular') {
+        regularHtml += card;
+      } else if (cat === 'attar') {
+        attarHtml += card;
+      }
+    });
+
+    premiumHtml += "</div>";
+    regularHtml += "</div>";
+    attarHtml += "</div>";
+
+    let pSec = document.getElementById('premium-section');
+    let rSec = document.getElementById('regular-section');
+    let aSec = document.getElementById('attar-section');
+
+    if (pSec) pSec.innerHTML = premiumHtml;
+    if (rSec) rSec.innerHTML = regularHtml;
+    if (aSec) aSec.innerHTML = attarHtml;
+
+  } catch (err) {
+    console.log("Error loading categories:", err);
+  }
+}
+
+// جیسے ہی پیج لوڈ ہو، یہ فنکشن چل جائے
+window.addEventListener('DOMContentLoaded', loadCategoriesData);
